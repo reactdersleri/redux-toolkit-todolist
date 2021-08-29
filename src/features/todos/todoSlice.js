@@ -1,36 +1,31 @@
 import { createSlice } from "@reduxjs/toolkit";
 import uuid from "react-uuid";
 
-const initialState = [
-  {
-    id: uuid(),
-    title: "Sample to do",
-    completed: false,
-  },
-];
+const initialState = [];
 
 export const todoSlice = createSlice({
   name: "todos",
   initialState,
   reducers: {
-    addTodo: (state, action) => {
-      state.push(action.payload);
+    add: (state, action) => {
+      const newTodo = { id: uuid(), title: action.payload, completed: false };
+      state.push(newTodo);
     },
-    removeTodo: (state, action) => {
-      state = state.filter((todo) => todo.id !== action.payload);
+    remove: (state, action) => {
+      return state.filter((todo) => todo.id !== action.payload);
     },
-    markTodoCompleted: (state, action) => {
+    markCompleted: (state, action) => {
       const todo = state.find((todo) => todo.id === action.payload);
       todo.completed = true;
     },
-    markTodoNotCompleted: (state, action) => {
+    markNotCompleted: (state, action) => {
       const todo = state.find((todo) => todo.id === action.payload);
       todo.completed = false;
     },
   },
 });
 
-export const { addTodo, markTodoCompleted, markTodoNotCompleted, removeTodo } =
+export const { add, markCompleted, markNotCompleted, remove } =
   todoSlice.actions;
 
 export default todoSlice.reducer;
