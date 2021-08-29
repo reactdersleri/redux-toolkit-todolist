@@ -8,18 +8,22 @@ const TodoForm = () => {
   const dispatch = useDispatch();
 
   const onSave = () => {
-    dispatch(add(title));
-    setTitle("");
+    if (title) {
+      dispatch(add(title));
+      setTitle("");
+    } else {
+      alert("You must enter a title for your todo");
+    }
   };
 
   return (
-    <div>
+    <div className="form">
       <input
         name="title"
         value={title}
         onChange={(e) => setTitle(e.currentTarget.value)}
       />
-      <button onClick={onSave}>Save</button>
+      <button onClick={onSave}>Add</button>
     </div>
   );
 };

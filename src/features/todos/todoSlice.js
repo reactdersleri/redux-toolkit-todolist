@@ -22,10 +22,22 @@ export const todoSlice = createSlice({
       const todo = state.find((todo) => todo.id === action.payload);
       todo.completed = false;
     },
+    markAllCompleted: (state) => {
+      return state.map((todo) => ({ ...todo, completed: true }));
+    },
+    deleteCompleted: (state) => {
+      return state.filter((todo) => !todo.completed);
+    },
   },
 });
 
-export const { add, markCompleted, markNotCompleted, remove } =
-  todoSlice.actions;
+export const {
+  add,
+  markCompleted,
+  markNotCompleted,
+  remove,
+  markAllCompleted,
+  deleteCompleted,
+} = todoSlice.actions;
 
 export default todoSlice.reducer;
